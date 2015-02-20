@@ -4,8 +4,26 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"browser-package\" value=\"Device\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "ripple.wallet.mobile"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "ripple.wallet.mobile"
+        }
+    },
     "dependent_plugins": {}
 }
