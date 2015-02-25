@@ -5,3 +5,4 @@ src/project/node_modules/
 src/project/deps/js/
 *.sublime-project
 *.sublime-workspace
+src/project/www/
