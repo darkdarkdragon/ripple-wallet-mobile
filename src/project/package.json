@@ -1,0 +1,21 @@
+{
+  "name": "ripple-wallet-mobile",
+  "version": "0.1.0",
+  "description": "Ripple Wallet for mobile platforms. Android for now.",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "Ivan Tivonenko",
+    "email": "darkdarkdragon@gmail.com"
+  },
+  "dependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/darkdarkdragon/ripple-wallet-mobile.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-rename": "^1.2.0"
+  }
+}

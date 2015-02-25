@@ -1,0 +1,24 @@
+{
+  "name": "ripple-wallet-mobile",
+  "authors": [
+    "Ivan Tivonenko <darkdarkdragon@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "https://code.angularjs.org/1.4.0-beta.4/angular-route.js",
+    "angular-touch": "https://code.angularjs.org/1.4.0-beta.4/angular-touch.js",
+    "angular-messages": "https://code.angularjs.org/1.4.0-beta.4/angular-messages.js",
+    "spin.js": "~2.0.2",
+    "snapjs": "~1.9.3",
+    "mobile-angular-ui": "https://github.com/mcasimir/mobile-angular-ui.git#~1.2.0-beta.11"
+  }
+}

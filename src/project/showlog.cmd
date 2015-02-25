@@ -1,0 +1,1 @@
+start D:\dev\tools\androidsdk\sdk\platform-tools\adb.exe logcat -s CordovaLog

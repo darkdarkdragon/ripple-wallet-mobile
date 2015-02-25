@@ -1,3 +1,7 @@
 src/project/platforms
 src/project/plugins
 
+src/project/node_modules/
+src/project/deps/js/
+*.sublime-project
+*.sublime-workspace

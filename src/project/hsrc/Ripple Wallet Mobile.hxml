@@ -1,0 +1,6 @@
+-lib angular.haxe
+-cp src
+-js ../www/js/index.js
+-D _z1
+-main ripple.wallet.mobile.Main
+-cmd aftercompile.cmd
