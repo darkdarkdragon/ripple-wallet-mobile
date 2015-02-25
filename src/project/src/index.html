@@ -25,18 +25,29 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <link rel="stylesheet" type="text/css" href="css/mobile-angular-ui-base.css" />
+        <title>Ripple Mobile Wallet</title>
     </head>
-    <body>
-        <div class="app">
+    <body ng-app="mobileWallet" ng-controller="AppController">
+        <h1>{{data.appName}}</h1>
+        <div class="capp">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <div class="event received">Device is Ready</div>
             </div>
-            <span>Hello! 2!</span>
+            <span>Hello! 3!</span>
+            <span></span>>{{message}}</span>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="PushNotification.js"></script>
+        <script type="text/javascript" src="js/snap.js"></script>
+        <script type="text/javascript" src="js/spin.js"></script>
+        <script type="text/javascript" src="js/angular.js"></script>
+        <script type="text/javascript" src="js/angular-messages.js"></script>
+        <script type="text/javascript" src="js/angular-route.js"></script>
+        <!-- <script type="text/javascript" src="js/angular-touch.js"></script> -->
+        <script type="text/javascript" src="js/mobile-angular-ui.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

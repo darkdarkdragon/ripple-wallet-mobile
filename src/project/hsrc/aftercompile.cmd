@@ -1,0 +1,2 @@
+cd ..
+cordova prepare
