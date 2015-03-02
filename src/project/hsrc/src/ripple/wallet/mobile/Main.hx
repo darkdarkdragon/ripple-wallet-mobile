@@ -1,10 +1,15 @@
 package ripple.wallet.mobile;
 
 import angular.Angular;
+import angular.route.RouteProvider;
 import angular.service.Scope;
 import haxe.Json;
 import js.Browser;
 import js.Lib;
+import ripple.wallet.mobile.internal.jade.Jade;
+
+import ripple.wallet.mobile.tabs.TabLogin;
+import ripple.wallet.mobile.tabs.TabBalances;
 
 /**
  * ...
@@ -16,15 +21,18 @@ class Main {
 	static var _appScope: Scope;
 
     static function appController(scope: Scope) {
-        trace("appController initialized");
-        scope.set("data", { appName : 'Wallet' } );
-        _appScope = scope;
+//        trace("appController initialized");
+//        scope.set("data", { appName : 'Wallet' } );
+//        _appScope = scope;
     }
 
 	static function startup() {
         trace("startup");
 
         Browser.document.addEventListener('deviceready', onDeviceReady, false);
+
+//        trace(Jade.require('../../../../../src/jade/i.jade'));
+        trace(Jade.require('i'));
     }
 
     // result contains any message sent from the plugin call
@@ -95,6 +103,8 @@ class Main {
     }
 
     static function receivedEvent(id: String, e: Dynamic) {
+        trace('Received Event: ' + id);
+        return;
         //Main.receivedEvent('deviceready');
         var document = Browser.document;
         var parentElement = document.getElementById(id);
@@ -107,16 +117,39 @@ class Main {
         trace('Received Event: ' + id);
     }
 
+    static function config(route: RouteProvider) {
+        route.when('/', { templateUrl:'home.html', reloadOnSearch: false } );
+        route.when('/login', {
+//            controller: TabLogin.new,
+            controller: 'TabLoginCtrl',
+            controllerAs: 'login',
+            template: '<div>Login here! <span>{{ user.firstName }}</span></div><div ng-click="login.goBalance();" ><span >GO BALANCE</span></div>',
+            reloadOnSearch: false
+        });
+        var balanceCfg = {
+            controller: 'TabBalanceCtrl',
+            controllerAs: 'balance',
+            template: '<div>Balance here! <span>{{ username }}</span></div>',
+            reloadOnSearch: false
+        };
+        route.when('/balance', balanceCfg);
+//        route.when('/', balanceCfg);
+//        route.otherwise('/balance');
+    }
+
 
 	static function main() {
         @:keep untyped Browser.window.appClass = untyped ripple.wallet.mobile.Main;
         Browser.window.console.log('Hello!');
         var module =
-            Angular.module("mobileWallet", [])
+            Angular.module("mobileWallet", ['ngRoute', 'mobile-angular-ui'])
+            .config(config)
             // no need give the factory a name,
             // the link is created by the types
 //            .factory(Config.new)
             .controller("AppController", appController)
+            .controller("TabLoginCtrl", TabLogin.new)
+            .controller("TabBalanceCtrl", TabBalances.new)
             .run(startup);
 	}
 
