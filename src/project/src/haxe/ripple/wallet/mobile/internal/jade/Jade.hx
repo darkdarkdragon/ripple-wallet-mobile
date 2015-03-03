@@ -9,7 +9,7 @@ import haxe.macro.Context;
  */
 class Jade {
 
-    static var jadePath = '../src/jade';
+    static var jadePath = 'src/jade';
 
     #if macro
 
