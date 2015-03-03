@@ -123,13 +123,13 @@ class Main {
 //            controller: TabLogin.new,
             controller: 'TabLoginCtrl',
             controllerAs: 'login',
-            template: '<div>Login here! <span>{{ user.firstName }}</span></div><div ng-click="login.goBalance();" ><span >GO BALANCE</span></div>',
+            template: Jade.require('login'),
             reloadOnSearch: false
         });
         var balanceCfg = {
             controller: 'TabBalanceCtrl',
             controllerAs: 'balance',
-            template: '<div>Balance here! <span>{{ username }}</span></div>',
+            template: Jade.require('balance'),
             reloadOnSearch: false
         };
         route.when('/balance', balanceCfg);
