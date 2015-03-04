@@ -1,5 +1,31 @@
-div
-  | Login here from jade! 2x
-  span {{ user.firstName }}
-div(ng-click="login.goBalance();")
-  span GO BALANCE
+.section
+  h2.text-center Login
+  form(name='loginForm', ng-submit='login.submitForm()')
+    .breaker
+      label(for='login_username') Ripple name
+      .input-group
+        span.input-group-addon.ripple-addon ~
+        input.form-control#login_username(name='login_username', type='text', ng-model='username', required,
+        rp-focus-on-empty, rp-autofill='$routeParams.username')
+    .form-group(ng-hide="'verifying' === verifyStatus")
+      label(for='login_password') Password
+      input.form-control#login_password(name='login_password', type='password', ng-model='password', required)
+
+    .text-status(ng-show='status')
+      span.loggingIn {{status}}
+      br
+      .backend.error(ng-repeat="message in backendMessages")
+        b {{message.backend}} &#32;
+        span.error {{message.message}}
+    .submit-btn-container
+      button.btn.btn-submit.btn-block.btn-success#loginBtn(type='submit',
+        ng-disabled="ajax_loading || loginForm.$invalid")
+        img(src="img/button-s.png", class="loader", ng-show="ajax_loading")
+        span(class="loading_text", ng-show="ajax_loading", l10n) Logging in
+        span(ng-hide="ajax_loading") Log In
+
+//- div
+//-   | Login here from jade! 2x
+//-   span {{ user.firstName }}
+//- div(ng-click="login.goBalance();")
+//-   span GO BALANCE
