@@ -4,6 +4,7 @@ import angular.route.Route;
 import angular.service.Location;
 import angular.service.Scope;
 import angular.service.TypedScope;
+import haxe.Timer;
 
 /**
  * ...
@@ -16,6 +17,7 @@ typedef Message = {
 }
 
 typedef TabLoginScope = {
+    > Scope,
                             user: {
                                 firstName : String,
                                 lastName : String
@@ -54,16 +56,23 @@ class TabLogin {
 
     @:keep public function submitForm() {
         trace('submitForm!!!');
-        this.scope.status = 'Got!';
-        this.scope.backendMessages = [
-            {
-                backend: 'from backend!',
-                message: 'got message'
-            }
-        ];
 //        trace(this.route.routes);
 //        trace(this.route.current);
 //        this.route.updateParams({ d: 2 });
+        this.scope.status = '';
+        this.scope.backendMessages = [];
+        this.scope.ajax_loading = true;
+        Timer.delay(function() {
+            this.scope.ajax_loading = false;
+            this.scope.status = 'Got bad result.';
+            this.scope.backendMessages = [
+                {
+                    backend: 'from backend!',
+                    message: 'got message'
+                }
+            ];
+            this.scope.apply();
+        }, 3000);
     }
 
 }
