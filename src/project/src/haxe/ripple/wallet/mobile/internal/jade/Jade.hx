@@ -14,6 +14,7 @@ class Jade {
     #if macro
 
     static inline function compileJade(path: String, templateName: String) {
+        trace('compiling jade template $templateName');
         var status = Sys.command('jade', [path]);
         if (status != 0) {
             Context.error('error compiling ${templateName}', Context.currentPos());
@@ -37,7 +38,7 @@ class Jade {
                 var htmlStat = sys.FileSystem.stat(htmlPath);
                 var jadeStat = sys.FileSystem.stat(path);
                 if (jadeStat.mtime.getTime() > htmlStat.mtime.getTime()) {
-                    trace('compiling jade template $templateName');
+//                    trace('compiling jade template $templateName');
                     compileJade(path, templateName);
                 } else {
 //                    trace('file is good');

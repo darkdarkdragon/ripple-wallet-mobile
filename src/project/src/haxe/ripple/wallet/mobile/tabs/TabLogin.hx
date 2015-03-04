@@ -54,6 +54,13 @@ class TabLogin {
 
     @:keep public function submitForm() {
         trace('submitForm!!!');
+        this.scope.status = 'Got!';
+        this.scope.backendMessages = [
+            {
+                backend: 'from backend!',
+                message: 'got message'
+            }
+        ];
 //        trace(this.route.routes);
 //        trace(this.route.current);
 //        this.route.updateParams({ d: 2 });

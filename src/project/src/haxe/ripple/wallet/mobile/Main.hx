@@ -7,6 +7,7 @@ import haxe.Json;
 import js.Browser;
 import js.Lib;
 import ripple.wallet.mobile.internal.jade.Jade;
+import ripple.wallet.mobile.tabs.TabHistory;
 
 import ripple.wallet.mobile.tabs.TabLogin;
 import ripple.wallet.mobile.tabs.TabBalances;
@@ -126,6 +127,13 @@ class Main {
             template: Jade.require('login'),
             reloadOnSearch: false
         });
+        route.when('/history', {
+//            controller: TabLogin.new,
+            controller: 'TabHistoryCtrl',
+            controllerAs: 'history',
+            template: Jade.require('history'),
+            reloadOnSearch: false
+        });
         var balanceCfg = {
             controller: 'TabBalanceCtrl',
             controllerAs: 'balance',
@@ -150,6 +158,7 @@ class Main {
             .controller("AppController", appController)
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)
+            .controller("TabHistoryCtrl", TabHistory.new)
             .run(startup);
 	}
 
