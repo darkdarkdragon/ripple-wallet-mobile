@@ -7,6 +7,7 @@ import haxe.Json;
 import js.Browser;
 import js.Lib;
 import ripple.wallet.mobile.internal.jade.Jade;
+import ripple.wallet.mobile.services.Id;
 import ripple.wallet.mobile.tabs.TabHistory;
 
 import ripple.wallet.mobile.tabs.TabLogin;
@@ -27,13 +28,14 @@ class Main {
 //        _appScope = scope;
     }
 
-	static function startup() {
+	static function startup(id: Id) {
         trace("startup");
 
         Browser.document.addEventListener('deviceready', onDeviceReady, false);
 
 //        trace(Jade.require('../../../../../src/jade/i.jade'));
         trace(Jade.require('i'));
+        id.init();
     }
 
     // result contains any message sent from the plugin call
@@ -155,6 +157,7 @@ class Main {
             // no need give the factory a name,
             // the link is created by the types
 //            .factory(Config.new)
+            .factory(Id.new)
             .controller("AppController", appController)
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)

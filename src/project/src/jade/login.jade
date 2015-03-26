@@ -18,7 +18,7 @@
         span.error {{message.message}}
     .submit-btn-container
       button.btn.btn-submit.btn-block.btn-success#loginBtn(type='submit',
-        ng-disabled="ajax_loading || loginForm.$invalid")
+        ng-disabled="ajax_loading || loginForm.$invalid || loginsStatus")
         img(src="img/button-s.png", class="loader", ng-show="ajax_loading")
         span(class="loading_text", ng-show="ajax_loading", l10n) Logging in
         span(ng-hide="ajax_loading") Log In
