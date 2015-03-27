@@ -22,16 +22,24 @@ class Id {
 
     public var loginStatus(get, never): Bool;
     public var username(get, never): String;
+    public var address(get, never): String;
 
     var client: VaultClient;
     var scope: RootScope;
+    var location: Location;
 
     var _isLoggedIn = false;
     var _username: String = '';
+    var _address: String = '';
+    var _resolvesProgressMap: Map<String, Promise<String>>;
+    var _namesCache: Map<String, String>;
 
-    public function new(scope: RootScope) {
+    public function new(scope: RootScope, location: Location) {
         this.client = new VaultClient(Options.domain);
         this.scope = scope;
+        this.location = location;
+        this._resolvesProgressMap = new Map();
+        this._namesCache = new Map();
     }
 
     /**
@@ -53,38 +61,45 @@ class Id {
         return Promise.value(false);
     }
 
-    function getStoredRippleAuth(): RippleAuthSaved {
-        var ripple_auth = this.getFromStorage('ripple_auth');
-        if (ripple_auth != null) {
-            var ripple_auth_d = null;
-            try {
-                ripple_auth_d = Json.parse(ripple_auth);
-                if (ripple_auth_d.username == null ||
-                    ripple_auth_d.url == null ||
-                    ripple_auth_d.keys == null ||
-                    ripple_auth_d.keys.id == null ||
-                    ripple_auth_d.keys.crypt == null) {
-                        ripple_auth_d = null;
-                        throw 'bad';
-                }
-            } catch (e: Dynamic) {
-                trace('error: ');
-                trace(e);
-                this.removeFromStorage('ripple_auth');
-            }
-            return ripple_auth_d;
+    public function resolveAddress(address: String): Promise<String> {
+        if (this._namesCache.exists(address)) {
+            return Promise.value(this._namesCache.get(address));
         }
-        return null;
+        if (this._resolvesProgressMap.exists(address)) {
+            var p = this._resolvesProgressMap.get(address);
+            if (p.isResolved()) {
+                // something wrong here
+                this._resolvesProgressMap.remove(address);
+            } else {
+                return this._resolvesProgressMap.get(address);
+            }
+        }
+        var promise = ripple.vaultclient.AuthInfo.get(Options.domain, address).mapSuccess(function(authInfo) {
+            var res = address;
+            if (authInfo.exists && authInfo.username != null && authInfo.username.length > 0) {
+                res = authInfo.username;
+            }
+            this._namesCache.set(address, res);
+            return res;
+        });
+        promise.then(function(_) {
+            this._resolvesProgressMap.remove(address);
+        });
+        this._resolvesProgressMap.set(address, promise);
+        return promise;
     }
 
     public function logout() {
         this.removeFromStorage('ripple_auth');
         this.scope.apply(function() {
+            this._isLoggedIn = false;
             this._username = '';
             this.scope.set('userBlob', {});
             this.scope.set('userCredentials', { username: '', account: '' } );
             this.scope.set('loginStatus', this.loginStatus);
         });
+        this.location.path('/');
+//        Browser.location.reload();
     }
 
     public function relogin(): Promise<BlobObj> {
@@ -95,6 +110,7 @@ class Id {
                     trace('re-logged in! ${ripple_auth.username} ${v.data.account_id}');
                     this._isLoggedIn = true;
                     this._username = ripple_auth.username;
+                    this._address = v.data.account_id;
                     this.scope.set('userBlob', v);
                     this.scope.set('userCredentials', { username: this.username, account: v.data.account_id } );
                     this.scope.set('loginStatus', this.loginStatus);
@@ -122,6 +138,7 @@ class Id {
                 trace(v);
                 this._isLoggedIn = true;
                 this._username = v.username;
+                this._address = v.blob.data.account_id;
                 this.scope.set('userBlob', v.blob);
                 this.scope.set('userCredentials', { username: this.username, account: v.blob.data.account_id } );
                 this.scope.set('loginStatus', this.loginStatus);
@@ -134,6 +151,30 @@ class Id {
             });
             return v.blob;
         });
+    }
+
+    function getStoredRippleAuth(): RippleAuthSaved {
+        var ripple_auth = this.getFromStorage('ripple_auth');
+        if (ripple_auth != null) {
+            var ripple_auth_d = null;
+            try {
+                ripple_auth_d = Json.parse(ripple_auth);
+                if (ripple_auth_d.username == null ||
+                    ripple_auth_d.url == null ||
+                    ripple_auth_d.keys == null ||
+                    ripple_auth_d.keys.id == null ||
+                    ripple_auth_d.keys.crypt == null) {
+                        ripple_auth_d = null;
+                        throw 'bad';
+                }
+            } catch (e: Dynamic) {
+                trace('error: ');
+                trace(e);
+                this.removeFromStorage('ripple_auth');
+            }
+            return ripple_auth_d;
+        }
+        return null;
     }
 
     function storeLoginKeys(url: String, username: String, keys: { id: String, crypt: String }) {
@@ -201,6 +242,10 @@ class Id {
 
     inline function get_username(): String {
         return this._username;
+    }
+
+    inline function get_address(): String {
+        return this._address;
     }
 
 }

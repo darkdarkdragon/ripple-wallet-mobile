@@ -6,9 +6,9 @@
     <div class="list-group" ui-turn-off='uiSidebarLeft'>
       <a class="list-group-item" href="#/">Home <i class="fa fa-chevron-right pull-right"></i></a>
       <a class="list-group-item" href="#/login" ng-hide="loginStatus">Login <i class="fa fa-chevron-right pull-right"></i></a>
-      <a class="list-group-item" href="#/login" ng-show="loginStatus">Logout</a>
       <a class="list-group-item" href="#/balance">Balance <i class="fa fa-chevron-right pull-right"></i></a>
       <a class="list-group-item" href="#/history">History <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="" ng-click="logout()" ng-show="loginStatus">Logout</a>
     </div>
   </div>
 </div>

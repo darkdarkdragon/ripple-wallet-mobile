@@ -3,6 +3,7 @@ package ripple.wallet.mobile.tabs;
 import angular.route.Route;
 import angular.service.Location;
 import angular.service.Scope;
+import angular.service.Timeout;
 import angular.service.TypedScope;
 import haxe.Timer;
 import ripple.wallet.mobile.services.Id;
@@ -36,13 +37,15 @@ class TabLogin {
     var location: Location;
     var scope: TypedScope<TabLoginScope>;
     var route: Route;
+    var timeout: Timeout;
     var id: Id;
 
-    public function new(scope: TypedScope<TabLoginScope>, location: Location, route: Route, id: Id) {
+    public function new(scope: TypedScope<TabLoginScope>, location: Location, route: Route, id: Id, timeout: Timeout) {
         trace('TabLogin new');
         this.location = location;
         this.scope = scope;
         this.route = route;
+        this.timeout = timeout;
         this.id = id;
         trace(this.route.routes);
         trace(this.route.current);
@@ -72,12 +75,9 @@ class TabLogin {
             this.scope.apply(function() {
                 this.scope.ajax_loading = false;
                 this.scope.status = 'Login successful.';
-//                this.scope.backendMessages = [
-//                    {
-//                        backend: 'from backend!',
-//                        message: 'got message'
-//                    }
-//                ];
+                this.timeout.timeout(function() {
+                    this.location.path('/');
+                }, 300);
             });
         }, function(e) {
             this.scope.apply(function() {

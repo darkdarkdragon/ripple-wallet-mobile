@@ -1,4 +1,10 @@
 .section
   h3.text-center Balance
+  div(style="color: red", ng-if="unfunded") You account is unfunded
   div
-    | Balance here will be!
+    ul
+      li(ng-repeat="balance in balances")
+        span
+          b {{balance.value}} 
+          | {{balance.currency}}
+  div {{resp}}

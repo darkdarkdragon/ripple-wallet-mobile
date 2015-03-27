@@ -2,11 +2,13 @@ package ripple.wallet.mobile;
 
 import angular.Angular;
 import angular.route.RouteProvider;
+import angular.service.RootScope;
 import angular.service.Scope;
 import haxe.Json;
 import js.Browser;
 import js.Lib;
 import ripple.wallet.mobile.internal.jade.Jade;
+import ripple.wallet.mobile.services.Balances;
 import ripple.wallet.mobile.services.Id;
 import ripple.wallet.mobile.tabs.TabHistory;
 
@@ -28,7 +30,7 @@ class Main {
 //        _appScope = scope;
     }
 
-	static function startup(id: Id) {
+	static function startup(id: Id, scope: RootScope) {
         trace("startup");
 
         Browser.document.addEventListener('deviceready', onDeviceReady, false);
@@ -36,6 +38,12 @@ class Main {
 //        trace(Jade.require('../../../../../src/jade/i.jade'));
         trace(Jade.require('i'));
         id.init();
+        scope.set('logout', function() {
+            id.logout();
+            Browser.window.setTimeout(function() {
+                Browser.location.reload();
+            }, 100);
+        });
     }
 
     // result contains any message sent from the plugin call
@@ -158,6 +166,7 @@ class Main {
             // the link is created by the types
 //            .factory(Config.new)
             .factory(Id.new)
+            .factory(Balances.new)
             .controller("AppController", appController)
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)
