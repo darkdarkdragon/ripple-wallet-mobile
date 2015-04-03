@@ -1,3 +1,37 @@
-.section
-  h3.text-center History
-  div Will be here
+.section.scrollable
+  h3.text-center.scrollable-header History
+  .scrollable-content(id="t-history")
+    .transactions
+      div.emptyHistory(ng-show="!paymentsHistory.length")
+        | Sorry, no transactions match your current filter.
+      div
+        ul
+          li(class="{{p.payment.direction}}", ng-repeat="p in paymentsHistory track by p.hash")
+            .cont
+              .top
+                span.i(ng-hide="entry.details")
+                  i.fa.fa-arrow-down(ng-show="p.payment.direction=='incoming'")
+                  i.fa.fa-arrow-up(ng-show="p.payment.direction=='outgoing'")
+                  i.fa.fa-download.fa-rotate-90(ng-show="entry.transaction.type=='trusted'")
+                  i.fa.fa-download.fa-rotate-270(ng-show="entry.transaction.type=='trusting'")
+                  i.fa.fa-exchange(ng-show="p.payment.direction=='passthrough'")
+                  i.fa.fa-cogs(ng-show="entry.transaction.type=='accountset'")
+                  i.fa.fa-exclamation-triangle(ng-show="entry.transaction.type=='failed'")
+                span.desc(ng-switch="p.payment.direction")
+                  span(ng-switch-when="outgoing", rmw-span-spacing) You sent
+                    span.amount(rmw-pretty-amount="p.payment.destination_amount")
+                    | to 
+                    span.address(rmw-pretty-identity="p.payment.destination_account")
+                  span(ng-switch-when="incoming", rmw-span-spacing)
+                    span.address(rmw-pretty-identity="p.payment.source_account")
+                    | sent you 
+                    span.amount(rmw-pretty-amount="p.payment.destination_amount")
+                  span(ng-switch-when="passthrough", rmw-span-spacing)
+                    | Converted
+                    span.amount(rmw-pretty-amount="p.payment.source_amount")
+                    | to
+                    span.amount(rmw-pretty-amount="p.payment.destination_amount")
+                  span(ng-switch-default) Unknown direction {{ p.payment.direction }}
+                span.dt {{p.payment.date | date:'EEE, d MMM yy, HH:mm:ss'}}&#32;
+      div(ng-hide="noMore || global_loading")
+        a(href="", ng-click="history.loadMore()") Load more

@@ -61,6 +61,18 @@ class Id {
         return Promise.value(false);
     }
 
+    public function addressDontHaveName(address: String): Bool {
+        return this._namesCache.exists(address) && this._namesCache.get(address) == address;
+    }
+
+    public function resolveAddressSync(address: String): String {
+        if (this._namesCache.exists(address)) {
+            return this._namesCache.get(address);
+        }
+        this.resolveAddress(address);
+        return address;
+    }
+
     public function resolveAddress(address: String): Promise<String> {
         if (this._namesCache.exists(address)) {
             return Promise.value(this._namesCache.get(address));

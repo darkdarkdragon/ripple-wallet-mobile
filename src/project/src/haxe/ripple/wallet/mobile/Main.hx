@@ -7,11 +7,14 @@ import angular.service.Scope;
 import haxe.Json;
 import js.Browser;
 import js.Lib;
+import ripple.wallet.mobile.directives.Formatters;
+import ripple.wallet.mobile.filters.RMWFilters;
 import ripple.wallet.mobile.internal.jade.Jade;
 import ripple.wallet.mobile.services.Balances;
+import ripple.wallet.mobile.services.History;
 import ripple.wallet.mobile.services.Id;
-import ripple.wallet.mobile.tabs.TabHistory;
 
+import ripple.wallet.mobile.tabs.TabHistory;
 import ripple.wallet.mobile.tabs.TabLogin;
 import ripple.wallet.mobile.tabs.TabBalances;
 
@@ -167,6 +170,13 @@ class Main {
 //            .factory(Config.new)
             .factory(Id.new)
             .factory(Balances.new)
+            .factory(History.new)
+            .filter('rmwAmount', RMWFilters.rmwAmount)
+            .filter('rmwRippleName', RMWFilters.rmwRippleName)
+            .directive('rmwPrettyIdentity', Formatters.rmwPrettyIdentity)
+            .directive('rmwPrettyAmount', Formatters.rmwPrettyAmount)
+            .directive('rmwCurrency', Formatters.rmwCurrency)
+            .directive('rmwSpanSpacing', Formatters.rmwSpanSpacing)
             .controller("AppController", appController)
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)

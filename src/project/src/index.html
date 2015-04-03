@@ -29,9 +29,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
 
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/web.css" />
         <link rel="stylesheet" type="text/css" href="css/mobile-angular-ui-base.css" />
-        <title>Ripple Mobile Wallet</title>
+        <title>Ripple Wallet Mobile</title>
     </head>
     <body ng-app="mobileWallet">
         <!-- Sidebars -->
@@ -44,7 +44,8 @@
 
               <div class="navbar navbar-app navbar-absolute-top">
                 <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
-                  Ripple Wallet Mobile <span ng-show="loginStatus">(logged)</span>
+                  Ripple Wallet Mobile <span ng-show="loginStatus">(logged) <b ng-bind="userCredentials.username"  style="color: #888888;"></b></span>
+                  <img src="img/button-s.png" class="loader" ng-show="global_loading" ></img>
                 </div>
                 <div class="btn-group pull-left">
                   <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
@@ -89,6 +90,7 @@
         </div><!-- ~ .app -->
         <div ui-yield-to="modals"></div>
 
+        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="PushNotification.js"></script>
         <script type="text/javascript" src="js/snap.js"></script>
