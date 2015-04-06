@@ -30,10 +30,13 @@ class TabBalances {
         this.scope = scope;
         this.id = id;
         this.balances = balances;
+        this.balances.load();
+        /*
         if (this.balances.balances.length > 0) {
             this.updateBalances();
         }
         this.scope.on('balancesUpdated', this.updateBalances);
+        */
 
 //        this.scope.watch('loginStatus', onLogin);
 //        if (this.id.loginStatus) {
@@ -42,14 +45,14 @@ class TabBalances {
 
     }
 
-
+/*
     function updateBalances() {
         this.scope.safeApply(function() {
             this.scope.resp = '';
             this.scope.balances = this.balances.balances;
         });
     }
-
+*/
 /*
     function onLogin(v: Bool, v2: Bool) {
         if (v) {

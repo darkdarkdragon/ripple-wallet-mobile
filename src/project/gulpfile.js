@@ -41,6 +41,8 @@ gulp.task('deps', function() {
     .pipe(gulp.dest('./www'));
   gulp.src('./img/**/*')
     .pipe(gulp.dest('./www/img'));
+  gulp.src('./res/icons/**/*')
+    .pipe(gulp.dest('./www/icons'));
 });
 
 

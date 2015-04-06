@@ -7,6 +7,7 @@ import angular.service.Scope;
 import haxe.Json;
 import js.Browser;
 import js.Lib;
+import ripple.wallet.mobile.directives.Effects;
 import ripple.wallet.mobile.directives.Formatters;
 import ripple.wallet.mobile.filters.RMWFilters;
 import ripple.wallet.mobile.internal.jade.Jade;
@@ -177,6 +178,7 @@ class Main {
             .directive('rmwPrettyAmount', Formatters.rmwPrettyAmount)
             .directive('rmwCurrency', Formatters.rmwCurrency)
             .directive('rmwSpanSpacing', Formatters.rmwSpanSpacing)
+            .directive('rmwSlide', Effects.rmwSlide)
             .controller("AppController", appController)
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)
