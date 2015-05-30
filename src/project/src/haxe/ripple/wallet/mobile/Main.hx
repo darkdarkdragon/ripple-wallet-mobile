@@ -14,6 +14,8 @@ import ripple.wallet.mobile.internal.jade.Jade;
 import ripple.wallet.mobile.services.Balances;
 import ripple.wallet.mobile.services.History;
 import ripple.wallet.mobile.services.Id;
+import ripple.wallet.mobile.tabs.TabObserve;
+import ripple.wallet.mobile.utils.StorageUtils;
 
 import ripple.wallet.mobile.tabs.TabHistory;
 import ripple.wallet.mobile.tabs.TabLogin;
@@ -42,11 +44,19 @@ class Main {
 //        trace(Jade.require('../../../../../src/jade/i.jade'));
         trace(Jade.require('i'));
         id.init();
-        scope.set('logout', function() {
-            id.logout();
-            Browser.window.setTimeout(function() {
-                Browser.location.reload();
-            }, 100);
+        scope.safeApply(function() {
+            scope.set('logout', function() {
+                id.logout();
+                Browser.window.setTimeout(function() {
+                    Browser.location.reload();
+                }, 100);
+            });
+
+            var observed = StorageUtils.getFromStorage('observed');
+            if (observed == null) {
+                observed = { };
+            }
+            scope.set('observed', observed);
         });
     }
 
@@ -138,20 +148,27 @@ class Main {
 //            controller: TabLogin.new,
             controller: 'TabLoginCtrl',
             controllerAs: 'login',
-            template: Jade.require('login'),
+            template: Jade.require('tabs/login'),
             reloadOnSearch: false
         });
         route.when('/history', {
 //            controller: TabLogin.new,
             controller: 'TabHistoryCtrl',
             controllerAs: 'history',
-            template: Jade.require('history'),
+            template: Jade.require('tabs/history'),
+            reloadOnSearch: false
+        });
+        route.when('/observe', {
+//            controller: TabLogin.new,
+            controller: 'TabObserveCtrl',
+            controllerAs: 'observe',
+            template: Jade.require('tabs/observe'),
             reloadOnSearch: false
         });
         var balanceCfg = {
             controller: 'TabBalanceCtrl',
             controllerAs: 'balance',
-            template: Jade.require('balance'),
+            template: Jade.require('tabs/balance'),
             reloadOnSearch: false
         };
         route.when('/balance', balanceCfg);
@@ -183,6 +200,7 @@ class Main {
             .controller("TabLoginCtrl", TabLogin.new)
             .controller("TabBalanceCtrl", TabBalances.new)
             .controller("TabHistoryCtrl", TabHistory.new)
+            .controller("TabObserveCtrl", TabObserve.new)
             .run(startup);
 	}
 

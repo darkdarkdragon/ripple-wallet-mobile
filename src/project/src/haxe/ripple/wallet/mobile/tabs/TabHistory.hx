@@ -1,8 +1,8 @@
 package ripple.wallet.mobile.tabs;
+
 import angular.service.RootScope;
 import angular.service.Scope;
 import angular.service.TypedScope;
-import js.Browser;
 import ripple.wallet.mobile.services.History;
 import ripple.wallet.mobile.services.Id;
 
