@@ -2,18 +2,18 @@ package ripple.wallet.mobile.services;
 
 import haxe.Timer;
 import js.Browser;
-import thx.core.AnonymousMap;
-import thx.core.Arrays;
-import thx.core.Maps;
+import thx.AnonymousMap;
+import thx.Arrays;
+import thx.Maps;
 import thx.promise.Promise;
-import thx.core.Error;
+import thx.Error;
 
 import angular.service.RootScope;
 
 import ripple.lib.RippleRestClient;
 
-using thx.core.Arrays;
-using thx.core.Iterators;
+using thx.Arrays;
+using thx.Iterators;
 
 /**
  * ...

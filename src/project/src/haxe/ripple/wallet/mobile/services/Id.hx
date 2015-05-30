@@ -4,9 +4,9 @@ import angular.service.Location;
 import angular.service.RootScope;
 import haxe.Json;
 import js.Browser;
-import thx.core.UUID;
+import thx.Uuid;
 import thx.promise.Promise;
-import thx.core.Error;
+import thx.Error;
 
 using StringTools;
 
@@ -141,7 +141,7 @@ class Id {
     public function login(username: String, password: String): Promise<BlobObj> {
         var deviceId = this.getDeviceID(username);
         if (deviceId == null) {
-            deviceId = UUID.create();
+            deviceId = Uuid.create();
         }
 
         return this.client.login(this.normalizeUsernameForInternals(username), password, deviceId).mapSuccess(function(v) {

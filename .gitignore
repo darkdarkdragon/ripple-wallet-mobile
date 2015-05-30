@@ -7,3 +7,4 @@ src/project/deps/js/
 *.sublime-workspace
 src/project/www/
 src/project/src/jade/**/*.html
+src/project/info.txt

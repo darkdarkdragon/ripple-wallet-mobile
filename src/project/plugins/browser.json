@@ -21,7 +21,7 @@
         "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "ripple.wallet.mobile"
         },
-        "org.apache.cordova.device": {
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "ripple.wallet.mobile"
         }
     },

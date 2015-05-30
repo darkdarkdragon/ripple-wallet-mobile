@@ -1,7 +1,7 @@
 package ripple.wallet.mobile.services;
 
 import thx.promise.Promise;
-import thx.core.Error;
+import thx.Error;
 
 import angular.service.RootScope;
 import ripple.lib.RippleRestClient;
