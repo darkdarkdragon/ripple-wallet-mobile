@@ -10,18 +10,18 @@
       label(for='login_password') Password
       input.form-control#login_password(name='login_password', type='password', ng-model='password', required, ng-disabled="ajax_loading")
 
-    .text-status(ng-show='status')
-      span.loggingIn {{status}}
-      br
-      .backend.error(ng-repeat="message in backendMessages")
-        b {{message.backend}} &#32;
-        span.error {{message.message}}
     .submit-btn-container
       button.btn.btn-submit.btn-block.btn-success#loginBtn(type='submit',
         ng-disabled="ajax_loading || loginForm.$invalid || loginsStatus")
         img(src="img/button-s.png", class="loader", ng-show="ajax_loading")
         span(class="loading_text", ng-show="ajax_loading", l10n) Logging in
         span(ng-hide="ajax_loading") Log In
+    .text-status(ng-show='status')
+      span.loggingIn {{status}}
+      br
+      .backend.error(ng-repeat="message in backendMessages")
+        b {{message.backend}} &#32;
+        span.error {{message.message}}
 
 //- div
 //-   | Login here from jade! 2x

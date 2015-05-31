@@ -72,6 +72,8 @@ class TabLogin {
         this.scope.ajax_loading = true;
 
         this.id.login(this.scope.username, this.scope.password).either(function(blob) {
+            trace('----- blob:');
+            trace(blob);
             this.scope.apply(function() {
                 this.scope.ajax_loading = false;
                 this.scope.status = 'Login successful.';
@@ -80,6 +82,8 @@ class TabLogin {
                 }, 300);
             });
         }, function(e) {
+            trace('----- error:');
+            trace(e);
             this.scope.apply(function() {
                 this.scope.ajax_loading = false;
                 this.scope.status = 'Login error.';

@@ -23,6 +23,9 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "ripple.wallet.mobile"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "ripple.wallet.mobile"
         }
     },
     "dependent_plugins": {}
