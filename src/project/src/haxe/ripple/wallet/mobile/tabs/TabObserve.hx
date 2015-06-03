@@ -5,9 +5,14 @@ import angular.service.Scope;
 import angular.service.RootScope;
 import ripple.wallet.mobile.services.Id;
 
+//typedef Observe {
+//    account: String;
+//}
+//
 typedef TabObserveScope = {
     > Scope,
-                            noMore: Bool
+                            noMore: Bool,
+                            observed: Array<String>
                         }
 
 /**
@@ -24,6 +29,7 @@ class TabObserve {
         this.id = id;
         this.scope = scope;
         this.rootScope = rootScope;
+        this.scope.observed = ['rFFdfdaaxS', 'ddd', 'fff'];
 
     }
 
