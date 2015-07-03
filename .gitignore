@@ -17,3 +17,6 @@ src/ripple.wallet.mobile/plugins/
 src/ripple.wallet.mobile/src/jade/**/*.html
 src/project/uninstall.cmd
 src/ripple.wallet.mobile/src/js/index_template.js
+src/ripple.wallet.mobile/src/home.html
+src/ripple.wallet.mobile/src/index.html
+src/ripple.wallet.mobile/src/sidebar.html
