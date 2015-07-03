@@ -1,0 +1,74 @@
+ion-view(view-title="Balance")
+  ion-content
+    .section
+      h3.text-center Balance
+      div(style="color: red", ng-if="unfunded") You account is unfunded
+    .section.widgets
+      .widget.widget-balances
+        h4(ng-click='showWidgetBalances=!showWidgetBalances'
+          ng-init='showWidgetBalances=true')
+          span(l10n) Balances
+          i.fa.fa-fw.fa-caret-down(ng-class="{'closed': !showWidgetBalances}")
+
+        div(rmw-slide='showWidgetBalances')
+          ul.fa-ul(ng-class="{'blank': !balances}")
+            li.currency-xrp(ng-click="entry.show=!entry.show", ng-init="entry.show=true")
+              i.fa-li.fa-money
+              h5 XRP
+              div(ng-show="balances.XRP")
+                span.balance {{ balances.XRP | rmwAmount }}
+              //- div(ng-hide="account.Balance") 0.00
+              //- dl(rp-slide="entry.show")
+              //-   dt
+              //-     span(l10n) Reserve
+              //-     | &#32;
+              //-     i.fa.fa-question-circle(
+              //-       rp-popover
+              //-       rp-popover-placement="bottom"
+              //-       l10n-rp-popover-title="Reserve amount"
+              //-       rp-popover-trigger="hover"
+              //-       l10n-data-content="Minimum amount of XRP required to fund your account. You cannot spend the reserve.")
+              //-   dd(ng-show="account.reserve")
+              //-     span.balance(rp-popover
+              //-       rp-popover-placement="top"
+              //-       rp-popover-trigger="hover"
+              //-       rp-popover-delay
+              //-       l10n-rp-popover-content="Reserve amount<br>{{ account.reserve | rpamount }} XRP"
+              //-       ) {{ account.reserve | rpamount:{abs_precision: 2} }}
+              //-   dd(ng-hide="account.reserve") 0.00
+
+              //-   dt
+              //-     span(l10n) Available
+              //-     | &#32;
+              //-     i.fa.fa-question-circle(
+              //-       rp-popover
+              //-       rp-popover-placement="bottom"
+              //-       l10n-rp-popover-title="Available amount"
+              //-       rp-popover-trigger="hover"
+              //-       l10n-data-content="Total amount of XRP in your account minus the reserve amount.")
+              //-   dd(ng-show="account.max_spend")
+              //-     span.balance(rp-popover
+              //-       rp-popover-placement="top"
+              //-       rp-popover-trigger="hover"
+              //-       rp-popover-delay
+              //-       l10n-rp-popover-content="Available amount<br>{{ account.max_spend | rpamount }} XRP"
+              //-       ) {{ account.max_spend | rpamount:{abs_precision: 2} }}
+              //-   dd(ng-hide="account.max_spend") 0.00
+
+            li(
+              ng-repeat="(currency, entry) in balances.Other"
+              ng-class="'currency-' + (currency | lowercase)"
+              ng-click="entry.show=!entry.show"
+              ng-init="entry.show=true")
+              i.fa-li.fa-money(ng-class="'fa-' + (currency | lowercase)")
+              h5 {{ currency }}
+              div
+                span.balance(ng-bind="entry.total | rmwAmount")
+              dl(rmw-slide="entry.show")
+                div(ng-repeat="(issuer, component) in entry.components")
+                  dt(ng-show="component.gateway.app")
+                    span(rp-address-popover="component.gateway.app") {{component.gateway.app.name}}
+                  dt(ng-hide="component.gateway.app")
+                    span(rmw-pretty-identity="issuer")
+                  dd
+                    span.balance(ng-bind="component | rmwAmount")

@@ -1,0 +1,9 @@
+ion-view(view-title="Observe")
+  ion-content
+    .section
+      h3.text-center Observe accounts
+      div
+        div Add observed address
+        div(ng-repeat="address  in observed")
+          span(rmw-pretty-identity="address")
+          button Remove

@@ -1,0 +1,10 @@
+-lib angular.haxe
+-lib thx.core
+-lib thx.promise
+-lib haxe-ripple-vault-client
+-lib haxe-ripple-lib
+-lib hxBitcoin
+-cp src/haxe
+-js www/js/index.js
+-D _z2
+-main ripple.wallet.mobile.Main
