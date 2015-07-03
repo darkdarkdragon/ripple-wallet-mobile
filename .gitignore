@@ -1,6 +1,5 @@
 src/project/platforms
 src/project/plugins
-
 src/project/node_modules/
 src/project/deps/js/
 *.sublime-project
@@ -10,10 +9,11 @@ src/project/src/jade/**/*.html
 src/project/info.txt
 src/ripple.wallet.mobile/www/lib
 src/ripple.wallet.mobile/www/js
+src/ripple.wallet.mobile/www/css
 src/ripple.wallet.mobile/www/icons
-src/ripple.wallet.mobile/www/node_modules/
-src/ripple.wallet.mobile/www/platforms/
-src/ripple.wallet.mobile/www/plugins/
-
-
+src/ripple.wallet.mobile/node_modules/
+src/ripple.wallet.mobile/platforms/
+src/ripple.wallet.mobile/plugins/
 src/ripple.wallet.mobile/src/jade/**/*.html
+src/project/uninstall.cmd
+src/ripple.wallet.mobile/src/js/index_template.js
