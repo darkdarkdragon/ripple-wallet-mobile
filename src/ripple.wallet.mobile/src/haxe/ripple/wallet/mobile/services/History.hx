@@ -26,6 +26,9 @@ class History {
         this.api = new RippleRestClient();
         this.scope.watch('loginStatus', onLogin);
         this._history = [];
+        #if test_data
+        this._history = testData;
+        #end
         this.setHistory();
     }
 
@@ -78,10 +81,13 @@ class History {
     }
 
     function onLogin(v: Bool, v2: Bool) {
-//        trace('History::onLogin($v, $v2)');
+        trace('History::onLogin($v, $v2)');
         if (!v) {
             this.currentPage = 0;
             this._history = [];
+            #if test_data
+            this._history = testData;
+            #end
             this.setHistory();
         }
     }
@@ -96,5 +102,39 @@ class History {
     inline function get_history() {
         return this._history;
     }
+
+    #if test_data
+    static var testData: Array<PaymentData> =
+        [
+            {
+                hash: '3DCE30EDB92530D2DF9F20098B9968A51B2F7EDB3EFA751B8E8B4BE8FA535FA3',
+                payment: {
+                    result: SUCCESS,
+                    direction : OUTGOING,
+                    date : Date.now(),
+                    destination_amount: {
+                        value: '123431',
+                        currency: 'XRP',
+                        issuer: ''
+                    },
+                    destination_account: 'rfXK4fN2AAqH7H5Uo94JQwT88qQkv69pqR'
+                },
+            },
+            {
+                hash: '3DCE30EDB92530D2DF9F20098B9968A51B2F7EDB3EFA751B8E8B4BE8FA535FA1',
+                payment: {
+                    result: SUCCESS,
+                    direction : INCOMING,
+                    date : Date.now(),
+                    destination_amount: {
+                        value: '433431',
+                        currency: 'XRP',
+                        issuer: ''
+                    },
+                    source_account: 'rfXK4fN2AAqH7H5Uo94JQwT88qQkv69pqR'
+                }
+            }
+        ];
+    #end
 
 }

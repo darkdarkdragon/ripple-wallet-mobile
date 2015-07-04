@@ -19,7 +19,7 @@
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="_z2" />
+    <option directives="_z2&#xA;test_data" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ripple.wallet.mobile.Main" />
